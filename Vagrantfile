@@ -20,7 +20,6 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "ansible/playbook.yml"
         ansible.host_key_checking = true
         ansible.sudo = true
-        ansible.ask_vault_pass = true
     end
     
     ####################################################################################################################
