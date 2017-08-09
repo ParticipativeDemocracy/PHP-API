@@ -4,7 +4,6 @@ sudo adduser vagrant --disabled-password --gecos "Vagrant User"
 sudo usermod -aG sudo vagrant
 sudo echo "vagrant ALL=NOPASSWD: ALL" >> /etc/sudoers
 mkdir /home/vagrant/.ssh
-cat /tmp/ssu_api.pub >> /home/vagrant/.ssh/authorized_keys
 chgrp -R vagrant /home/vagrant/.ssh
 chown -R vagrant /home/vagrant/.ssh
 

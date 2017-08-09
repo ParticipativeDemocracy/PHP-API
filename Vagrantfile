@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
             vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
             
             vb.memory = 2048
-            vb.name = "SSU_API"
+            vb.name = "Government_API"
         end
         
         dev.vm.provision "ansible" do |ansible|

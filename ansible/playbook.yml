@@ -4,5 +4,3 @@
   roles:
     - apache
     - php
-    - mysql
-    - ssu
