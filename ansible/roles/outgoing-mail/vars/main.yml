@@ -1,0 +1,4 @@
+smtp_username: dev@pomeloprouctions.com
+smtp_password: /Uz7orCHgeZbeAq6uXtm
+smtp_server: smtp.gmail.com
+smtp_server_relayhost: "[smtp.gmail.com]:587"

@@ -1,0 +1,27 @@
+---
+- name: Add ondrej/php
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+
+- name: Install PHP and its modules
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php7.1
+    - php7.1-fpm
+    - php7.1-imagick
+    - php7.1-curl
+    - php7.1-xml
+    - php7.1-mbstring
+
+- include: composer.yml
+
+- include: xdebug.yml
+  when: server_env == "development"
+
+
+- name: Make sure CLI logs to syslog
+  lineinfile: dest=/etc/php/7.1/cli/php.ini regexp=^;?error_log line='error_log = syslog'
+
+- name: Delete the cron php file
+  file: path=/etc/cron.d/php state=absent
+
