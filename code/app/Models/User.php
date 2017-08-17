@@ -2,7 +2,9 @@
 
 namespace Government\Models;
 
+use Government\Models\Document\Document;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property $email string this users email address
  * @property $password string This users password
  * @property $roles Collection all roles this user is connected to
+ * @property $documents Collection all documents this user has created
  */
 class User extends Authenticatable
 {
@@ -40,7 +43,7 @@ class User extends Authenticatable
     /**
      * @param $password
      */
-    public function setPasswordAttribute ($password) {
+    public function setPasswordAttribute($password) {
         $this->attributes['password'] = password_hash($password, PASSWORD_BCRYPT);
     }
 
@@ -49,5 +52,14 @@ class User extends Authenticatable
      */
     public function roles(): BelongsToMany {
         return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * All documents this user has created
+     *
+     * @return HasMany
+     */
+    public function documents(): HasMany {
+        return $this->hasMany(Document::class, 'created_by_id');
     }
 }
