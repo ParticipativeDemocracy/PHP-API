@@ -18,6 +18,11 @@ class Role extends Model
     use SoftDeletes;
 
     /**
+     * Role assigned to all members of the company
+     */
+    const ROLE_COMPANY_MEMBER = 'company_member';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
