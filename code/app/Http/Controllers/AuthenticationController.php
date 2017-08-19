@@ -64,7 +64,7 @@ class AuthenticationController
      */
     public function signUp(SignUpRequest $request) : JsonResponse {
 
-        $existingUser = $this->user->where('email', $request->email)->first();
+        $existingUser = $this->user->where('email', $request->input('email'))->first();
 
         if ($existingUser) {
             return new JsonResponse([
@@ -73,9 +73,9 @@ class AuthenticationController
         }
 
         $user = $this->user->create([
-            'email' => $request->email,
-            'password' => $request->password,
-            'name' => $request->name
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'name' => $request->input('name')
         ]);
 
         $token = JWTAuth::fromUser($user);
