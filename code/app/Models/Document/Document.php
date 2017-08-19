@@ -54,7 +54,7 @@ class Document extends Model
      */
     public function currentIteration(): DocumentIteration {
         return $this->documentIterations()
-            ->limit(1)->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->first();
     }
 
 }
