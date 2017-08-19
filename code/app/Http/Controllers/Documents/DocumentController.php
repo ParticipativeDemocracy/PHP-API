@@ -10,8 +10,8 @@ namespace Government\Http\Controllers\Documents;
 use Government\Http\Controllers\Controller;
 use Government\Http\Controllers\Document\CreateDocumentRequest;
 use Government\Models\Document\Document;
+use Government\Models\Document\DocumentIteration;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -62,9 +62,17 @@ class DocumentController extends Controller
     public function create(CreateDocumentRequest $request) : JsonResponse {
 
         $document = $this->document->create([
-            'title' => $request->title,
-            'created_by_id' => Auth::user()->id
+            'title' => $request->input('title'),
+            'created_by_id' => auth()->user()->id,
         ]);
+
+        $documentIteration = new DocumentIteration([
+            'document_id' => $document->id,
+            'created_by_id' => auth()->user()->id,
+            'content' => $request->input('content'),
+        ]);
+
+        $document->content = $documentIteration->content;
 
         return new JsonResponse([
             'message' => 'Successfully created document.',
