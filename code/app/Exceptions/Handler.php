@@ -5,6 +5,9 @@ namespace Government\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -40,11 +43,17 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof TokenExpiredException) {
+            return new JsonResponse(['token_expired'], $exception->getStatusCode());
+        } else if ($exception instanceof TokenInvalidException) {
+            return new JsonResponse(['token_invalid'], $exception->getStatusCode());
+        }
+
+        return new JsonResponse(['request' => $request, 'exception' => $exception], 500);
     }
 
     /**
