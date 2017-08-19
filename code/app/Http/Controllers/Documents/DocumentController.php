@@ -11,6 +11,7 @@ use Government\Http\Controllers\Controller;
 use Government\Http\Controllers\Document\CreateDocumentRequest;
 use Government\Models\Document\Document;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -42,18 +43,33 @@ class DocumentController extends Controller
         foreach ($documents as $document) {
             $row = clone $document;
             $row->content = $document->currentIteration()->content;
-            
+
             $data[] = $row;
         }
 
         return new JsonResponse([
-            'message' => 'Successfully Loaded All Documents',
+            'message' => 'Successfully loaded all documents.',
             'documents' => $data
         ]);
     }
 
+    /**
+     * Creates a single document object and returns it
+     *
+     * @param CreateDocumentRequest $request
+     * @return JsonResponse
+     */
     public function create(CreateDocumentRequest $request) : JsonResponse {
 
+        $document = $this->document->create([
+            'title' => $request->title,
+            'created_by_id' => Auth::user()->id
+        ]);
+
+        return new JsonResponse([
+            'message' => 'Successfully created document.',
+            'document' => $document
+        ]);
     }
 
 }
