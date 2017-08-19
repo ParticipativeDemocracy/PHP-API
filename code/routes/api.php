@@ -15,4 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'as' => 'v1.'], function() {
 
+    Route::post('/user/login', 'AuthenticationController@login');
+    Route::post('/user/signup', 'AuthenticationController@signUp');
+
+    Route::group(['middleware' => 'jwt.auth-v4'], function () {
+
+        Route::get('/documents', 'Documents/DocumentController@all');
+        Route::post('/documents', 'Documents/DocumentController@create');
+        Route::post('/documents/{document_id}/iterate', 'Documents/DocumentIterationController@create');
+    });
+
 });
