@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v4', 'as' => 'v4.'], function() {
+Route::group(['prefix' => 'v1', 'as' => 'v1.'], function() {
 
 });
