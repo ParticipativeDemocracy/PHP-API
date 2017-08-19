@@ -54,9 +54,9 @@ class DocumentIterationController extends Controller
         }
 
         $documentIteration = $this->documentIteration->create([
-            'content' => $request,
+            'content' => $request->input('content'),
             'document_id' => $document->id,
-            'created_by_id' => Auth::user()->id
+            'created_by_id' => auth()->user()->id,
         ]);
 
         return new JsonResponse([
