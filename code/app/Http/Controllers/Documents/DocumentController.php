@@ -72,6 +72,8 @@ class DocumentController extends Controller
             'content' => $request->input('content'),
         ]);
 
+        $documentIteration->save();
+
         $document->content = $documentIteration->content;
 
         return new JsonResponse([
