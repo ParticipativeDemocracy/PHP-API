@@ -21,9 +21,18 @@ class CreateDocumentIterationRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             'content' => 'required|string'
         ];
+    }
+
+    /**
+     * As long as there is a user right now then someone can create a document iteration
+     */
+    public function authorize()
+    {
+        return $this->user();
     }
 }
