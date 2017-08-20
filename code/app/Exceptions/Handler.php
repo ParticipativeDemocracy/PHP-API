@@ -77,7 +77,7 @@ class Handler extends ExceptionHandler
             return new JsonResponse(['message' => $message, 'stack_trace' => $exception->getTrace()], $exception->getStatusCode());
         }
 
-        return new JsonResponse(['message' => 'Unknown error', 'exception' => $exception], 500);
+        return new JsonResponse(['message' => $exception->getMessage(), 'stack_trace' => $exception->getTrace()], 500);
     }
 
     /**
