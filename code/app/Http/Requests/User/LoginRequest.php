@@ -20,11 +20,22 @@ class LoginRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
 
         return [
             'email' => 'required|email',
             'password' => 'required|min:6'
         ];
+    }
+
+    /**
+     * All requests to this route are authorized
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
     }
 }

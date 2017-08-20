@@ -21,12 +21,23 @@ class SignUpRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
 
         return [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
             'name' => 'required|string'
         ];
+    }
+
+    /**
+     * All requests to this route are authorized
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
     }
 }
