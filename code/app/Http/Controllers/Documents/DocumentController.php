@@ -42,7 +42,10 @@ class DocumentController extends Controller
 
         foreach ($documents as $document) {
             $row = clone $document;
-            $row->content = $document->currentIteration()->content;
+
+            if ($documentIteration = $document->currentIteration()) {
+                $row->content = $documentIteration->content;
+            }
 
             $data[] = $row;
         }
