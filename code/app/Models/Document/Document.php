@@ -52,7 +52,7 @@ class Document extends Model
      *
      * @return DocumentIteration
      */
-    public function currentIteration(): DocumentIteration {
+    public function currentIteration(): ?DocumentIteration {
         return $this->documentIterations()
             ->orderBy('created_at', 'DESC')->first();
     }
