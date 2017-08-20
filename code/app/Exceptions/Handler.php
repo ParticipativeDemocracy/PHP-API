@@ -53,7 +53,23 @@ class Handler extends ExceptionHandler
             return new JsonResponse(['token_invalid'], $exception->getStatusCode());
         }
 
-        return new JsonResponse(['request' => $request, 'exception' => $exception], 500);
+        if (method_exists($exception, 'getStatusCode')) {
+
+            $message = $exception->getMessage();
+            switch ($exception->getStatusCode()) {
+                case 401:
+                case 403:
+                    $message = 'Unauthorized request';
+                    break;
+                case 404:
+                    $message = 'Route not found';
+                    break;
+            }
+
+            return new JsonResponse(['message' => $message, 'stack_trace' => $exception->getTrace()], $exception->getStatusCode());
+        }
+
+        return new JsonResponse(['message' => 'Unknown error', 'exception' => $exception], 500);
     }
 
     /**
