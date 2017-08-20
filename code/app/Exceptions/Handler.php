@@ -3,6 +3,7 @@
 namespace Government\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
@@ -51,6 +52,9 @@ class Handler extends ExceptionHandler
             return new JsonResponse(['token_expired'], $exception->getStatusCode());
         } else if ($exception instanceof TokenInvalidException) {
             return new JsonResponse(['token_invalid'], $exception->getStatusCode());
+        }
+        else if ($exception instanceof AuthorizationException) {
+            return new JsonResponse(['message' => $exception->getMessage()], 403);
         }
 
         if (method_exists($exception, 'getStatusCode')) {
