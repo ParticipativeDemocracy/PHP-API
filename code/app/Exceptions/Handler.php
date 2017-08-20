@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -55,6 +56,9 @@ class Handler extends ExceptionHandler
         }
         else if ($exception instanceof AuthorizationException) {
             return new JsonResponse(['message' => $exception->getMessage()], 403);
+        }
+        else if ($exception instanceof ValidationException) {
+            return new JsonResponse(['message' => $exception->validator->getMessageBag()->first()], 400);
         }
 
         if (method_exists($exception, 'getStatusCode')) {
