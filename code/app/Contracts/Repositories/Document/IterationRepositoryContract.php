@@ -11,7 +11,7 @@ namespace Government\Contracts\Repositories\Document;
 
 use Government\Models\Document\Document;
 
-interface DocumentIterationRepositoryContract
+interface IterationRepositoryContract
 {
     /**
      * Create new document Iteration

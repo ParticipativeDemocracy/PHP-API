@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $title string the name of this document
  * @property $created_by_id int the user that created this document
  * @property $createdBy User the user model that created this document
- * @property $documentIterations Collection the iterations that this document has gone under
+ * @property $iterations Collection the iterations that this document has gone under
  */
 class Document extends Model
 {
@@ -67,17 +67,17 @@ class Document extends Model
      *
      * @return HasMany
      */
-    public function documentIterations(): HasMany {
-        return $this->hasMany(DocumentIteration::class);
+    public function iterations(): HasMany {
+        return $this->hasMany(Iteration::class);
     }
 
     /**
      * Returns the current document iteration
      *
-     * @return DocumentIteration
+     * @return Iteration
      */
     public function currentIteration(): ?DocumentIteration {
-        return $this->documentIterations()->latest();
+        return $this->iterations()->latest();
     }
 
 }

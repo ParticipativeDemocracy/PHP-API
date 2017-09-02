@@ -10,7 +10,7 @@ namespace Government\Http\Controllers\Documents;
 use Government\Http\Controllers\Controller;
 use Government\Http\Controllers\Document\CreateDocumentRequest;
 use Government\Models\Document\Document;
-use Government\Models\Document\DocumentIteration;
+use Government\Models\Document\Iteration;
 use Illuminate\Http\JsonResponse;
 
 class DocumentController extends Controller
@@ -43,8 +43,8 @@ class DocumentController extends Controller
         foreach ($documents as $document) {
             $row = clone $document;
 
-            if ($documentIteration = $document->currentIteration()) {
-                $row->content = $documentIteration->content;
+            if ($iteration = $document->currentIteration()) {
+                $row->content = $iteration->content;
             }
 
             $data[] = $row;
@@ -69,15 +69,15 @@ class DocumentController extends Controller
             'created_by_id' => auth()->user()->id,
         ]);
 
-        $documentIteration = new DocumentIteration([
+        $iteration = new Iteration([
             'document_id' => $document->id,
             'created_by_id' => auth()->user()->id,
             'content' => $request->input('content'),
         ]);
 
-        $documentIteration->save();
+        $iteration->save();
 
-        $document->content = $documentIteration->content;
+        $document->content = $iteration->content;
 
         return new JsonResponse([
             'message' => 'Successfully created document.',

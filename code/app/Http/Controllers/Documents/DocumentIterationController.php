@@ -11,7 +11,7 @@ namespace Government\Http\Controllers\Documents;
 use Government\Http\Controllers\Controller;
 use Government\Http\Controllers\Document\CreateDocumentIterationRequest;
 use Government\Models\Document\Document;
-use Government\Models\Document\DocumentIteration;
+use Government\Models\Document\Iteration;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,9 +23,9 @@ class DocumentIterationController extends Controller
     public $document;
 
     /**
-     * @var DocumentIteration
+     * @var Iteration
      */
-    public $documentIteration;
+    public $iteration;
 
     /**
      * DocumentIterationController constructor.
@@ -33,7 +33,7 @@ class DocumentIterationController extends Controller
     public function __construct()
     {
         $this->document = new Document();
-        $this->documentIteration = new DocumentIteration();
+        $this->iteration = new Iteration();
     }
 
     /**
@@ -53,7 +53,7 @@ class DocumentIterationController extends Controller
             ], 404);
         }
 
-        $documentIteration = $this->documentIteration->create([
+        $iteration = $this->iteration->create([
             'content' => $request->input('content'),
             'document_id' => $document->id,
             'created_by_id' => auth()->user()->id,
@@ -61,7 +61,7 @@ class DocumentIterationController extends Controller
 
         return new JsonResponse([
             'message' => 'Document iteration created!',
-            'document_iteration' => $documentIteration
+            'document_iteration' => $iteration
         ]);
     }
 

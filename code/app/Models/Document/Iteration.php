@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
- * Class DocumentIteration
+ * Class Iteration
  * @package Government\Models\Document
  * @property $document_id int the id of the document this is for
  * @property $document Document the model this document is for
@@ -16,9 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $createdBy User the user model that created this document
  * @property $content string the content of this document iteration
  */
-class DocumentIteration extends Model
+class Iteration extends Model
 {
     use SoftDeletes;
+
+    protected $table = 'document_iterations';
 
     /**
      * The variables which are not available to be mass assigned

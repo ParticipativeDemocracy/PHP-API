@@ -3,7 +3,7 @@
 namespace Government\Models;
 
 use Government\Models\Document\Document;
-use Government\Models\Document\DocumentIteration;
+use Government\Models\Document\Iteration;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property $password string This users password
  * @property $roles Collection all roles this user is connected to
  * @property $documents Collection all documents this user has created
- * @property $documentIterations Collection all documents this user has created
+ * @property $iterations Collection all documents this user has created
  */
 class User extends Authenticatable
 {
@@ -90,7 +90,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function documentIterations(): HasMany {
-        return $this->hasMany(DocumentIteration::class, 'created_by_id');
+    public function iterations(): HasMany {
+        return $this->hasMany(Iteration::class, 'created_by_id');
     }
 }
