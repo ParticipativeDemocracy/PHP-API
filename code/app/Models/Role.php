@@ -18,6 +18,30 @@ class Role extends Model
     use SoftDeletes;
 
     /**
+     * The variables which are not available to be mass assigned
+     */
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Date variables
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Variables not shown
+     */
+    protected $hidden = [
+        'deleted_at'
+    ];
+
+    /**
      * Role assigned to all members of the company
      */
     const ROLE_COMPANY_MEMBER = 'company_member';

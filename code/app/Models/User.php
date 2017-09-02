@@ -24,6 +24,24 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+
+    /**
+     * The variables which are not available to be mass assigned
+     */
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Date variables
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -39,7 +57,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'deleted_at',
     ];
 
     /**

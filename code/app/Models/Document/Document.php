@@ -21,6 +21,30 @@ class Document extends Model
     use SoftDeletes;
 
     /**
+     * The variables which are not available to be mass assigned
+     */
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Date variables
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Variables not shown
+     */
+    protected $hidden = [
+        'deleted_at'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

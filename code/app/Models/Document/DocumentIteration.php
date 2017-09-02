@@ -4,6 +4,7 @@ namespace Government\Models\Document;
 use Government\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
@@ -17,6 +18,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class DocumentIteration extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The variables which are not available to be mass assigned
+     */
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Date variables
+     */
+    protected $dates = [
+        'deleted_at'
+    ];
+
+    /**
+     * @var array Variables not shown
+     */
+    protected $hidden = [
+        'deleted_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
