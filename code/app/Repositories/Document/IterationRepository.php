@@ -12,10 +12,10 @@ use Government\Models\Document\Document;
 use Government\Models\Document\Iteration;
 
 /**
- * Class DocumentIterationRepository
+ * Class IterationRepository
  * @package App\Repositories
  */
-class DocumentIterationRepository implements IterationRepositoryContract
+class IterationRepository implements IterationRepositoryContract
 {
     /**
      * @var Iteration $DocumentIteration - the document model for this repository instance
